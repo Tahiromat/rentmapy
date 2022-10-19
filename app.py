@@ -39,7 +39,7 @@ choice = streamlit.sidebar.selectbox(
 )
 
 email = streamlit.sidebar.text_input("Email Address")
-password = streamlit.sidebar.text_input("Password")
+password = streamlit.sidebar.text_input("Password" ,type="password")
 
 if choice == "Sign Up":
     handle = streamlit.sidebar.text_input("Enter your handle name", value="Default")
@@ -55,3 +55,11 @@ if choice == "Sign Up":
         db.child(user["localId"]).child("ID").set(user["localId"])
 
         streamlit.title("Welcome" + handle)
+
+if choice == "Log In":
+    login = streamlit.sidebar.checkbox("Login")
+    if login:
+        user = auth.sign_in_with_email_and_password(email, password)
+
+        bio = streamlit.radio("Jump to", ["Home", "Workplace", "Settings"])
+        
